@@ -1,29 +1,28 @@
 .App {
   text-align: center;
-  /* background-color: #282c34; */
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  /* color: white; */
+  color: white;
 }
 
 :root {
-  --foreground: black;
-  --background: white;
+  --my-hue: 100;
+  /* --my-hue: 200; */
+  /* --my-hue: 50; */
 }
 
-:root * {
-  color: var(--foreground);
-  background-color: var(--background);
+body {
+  background: hsl(var(--my-hue), 40%, 95%);
 }
 
 h1,
 p {
-  --foreground: red;
-  --background: green;
+  color: hsl(var(--my-hue), 35%, 55%);
 }
 
 .btn {
