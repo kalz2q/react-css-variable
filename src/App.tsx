@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-// change background-color
+// useEffect の中に if 文を入れたらどうか
+// 機能するか
 const { useState, useEffect } = React;
 
 function App() {
-  const [bgcolor, setBGColor] = useState(colorlist[Math.floor(Math.random() * colorlist.length)]);
+  const [bgcolor, setBGColor] = useState("blue");
   const delay: number = 2000;
+
   const [stoppedTime, setStoppedTime] = useState(0);
   const [time, setTime] = useState(0);
   const [lastStartedAt, setLastStartedAt] = useState(new Date().getTime());
@@ -36,6 +38,7 @@ function App() {
     return;
   };
 
+  requestAnimationFrame(() => setTime(calcTime()));
 
   return (
     <div className="App">
