@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-// useEffect の中に if 文を入れたらどうか
-// 機能するか
+// change background-color
 const { useState, useEffect } = React;
 
 function App() {
-  const [bgcolor, setBGColor] = useState("blue");
-  const delay: number = 2000;
-
   const [stoppedTime, setStoppedTime] = useState(0);
   const [time, setTime] = useState(0);
-  const [lastStartedAt, setLastStartedAt] = useState(new Date().getTime());
+  const [lastStartedAt, setLastStartedAt] = useState(0);
+
+  const [bgcolor, setBGColor] = useState(colorlist[time % colorlist.length]);
+  const delay: number = 2000;
 
   const calcTime = () => {
     return lastStartedAt === 0
@@ -22,17 +21,22 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBGColor(colorlist[Math.floor(Math.random() * colorlist.length)]);
+      // setTime(calcTime());
+      // setLastStartedAt((time) => Math.floor(time / 1000));
+      setBGColor(colorlist[(time) % colorlist.length]);
+      console.log(time);
     }, delay);
 
     return () => { clearInterval(interval) };
-  }, []);
+  }, [time]);
 
   const timer = () => {
     if (lastStartedAt === 0) {
       setLastStartedAt(new Date().getTime());
     } else {
-      setStoppedTime(calcTime());
+      // setStoppedTime(calcTime());
+      setStoppedTime(time);
+      setBGColor(colorlist[(time) % colorlist.length]);
       setLastStartedAt(0);
     }
     return;
@@ -40,8 +44,10 @@ function App() {
 
   requestAnimationFrame(() => setTime(calcTime()));
 
+
   return (
     <div className="App">
+      <p>timer (ms): {time}</p>
       <h1>{bgcolor}</h1>
       <button onClick={() => timer()}>
         {lastStartedAt === 0 ? "start" : "stop"}
